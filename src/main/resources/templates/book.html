@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>書單詳情</title>
+    <!--    <link rel="stylesheet" href="../static/css/bootstrap.min.css">-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+<body th:object="${book}">
+<div class="container" style="max-width: 700px;">
+
+    <h2 class="page-header" style="margin-top: 50px;">詳情</h2>
+    <div class="well">
+        <p>
+            <!--        <strong>書名： </strong><span th:text="${book.name}">xxx</span>-->
+            <strong>書名： </strong><span th:text="*{name}">xxx</span>
+        </p>
+        <p>
+            <!--        <strong>作者： </strong><span th:text="${book.author}">xxx</span>-->
+            <strong>作者： </strong><span th:text="*{author}">xxx</span>
+        </p>
+        <p>
+            <!--        <strong>說明： </strong><span th:text="${book.description}">xxx</span>-->
+            <strong>說明： </strong><span th:text="*{description}">xxx</span>
+        </p>
+        <p th:switch="*{status}">
+            <!--        <strong>狀態： </strong><span th:text="${book.status}">xxx</span>-->
+            <strong>狀態： </strong>
+            <span th:case="0">想讀</span>
+            <span th:case="1">在讀</span>
+            <span th:case="2">已讀</span>
+        </p>
+    </div>
+
+    <div class="alert alert-success" th:unless="*{status} == 0">
+        <strong>不錯</strong>, 你已經開始行動啦~
+    </div>
+    <div class="alert alert-warning" th:if="*{status} == 0">
+        <strong>注意</strong>, 你還沒開始行動喔~
+    </div>
+
+    <a href="javascript:history.go(-1)" class="btn btn-default">返回</a>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<!--<script src="../static/js/bootstrap.min.js"></script>-->
+</body>
+</html>

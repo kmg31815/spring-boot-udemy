@@ -1,0 +1,17 @@
+book:
+  name: ??????
+  author: ???
+  isbn: ${random.uuid}
+  description: ${book.name} ???????
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3307/shopping?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: none
+  thymeleaf:
+    mode: HTML
