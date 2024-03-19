@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class BookController {
@@ -45,8 +46,12 @@ public class BookController {
     }
 
     @PostMapping("/books")
-    public String post(Book book) { // html input 的 name 屬性，需和物件屬性名稱對應
-        bookService.save(book);
+    public String post(Book book, RedirectAttributes attributes) { // html input 的 name 屬性，需和物件屬性名稱對應
+        Book book1 = bookService.save(book);
+
+        if (book1 != null){
+            attributes.addFlashAttribute("message", "《" + book1.getName() + "》提交成功！");
+        }
 
         // redirect 重定向 => 相當於重新調用 url，而非返回靜態 books.html
         return "redirect:/books";

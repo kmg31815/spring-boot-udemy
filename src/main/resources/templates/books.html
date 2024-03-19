@@ -8,6 +8,11 @@
 </head>
 <body class="container">
 <h1 class="page-header">Books List</h1>
+<div class="alert alert-success" th:unless="${#strings.isEmpty(message)}">
+    <a href="#" class="close" data-dismiss="alert">&times;</a>
+    <strong>恭喜, </strong>
+    <span th:text="${message}"></span>
+</div>
 <p class="text-right"><a href="#" class="btn btn-primary" th:href="@{/books/input}">新增</a></p>
 
 <table class="table table-striped">
