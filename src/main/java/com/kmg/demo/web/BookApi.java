@@ -3,6 +3,7 @@ package com.kmg.demo.web;
 import com.kmg.demo.domain.Book;
 import com.kmg.demo.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,8 +16,9 @@ public class BookApi {
     private BookService bookService;
 
     @GetMapping("/books")
-    public List<Book> getAll() {
-        return bookService.findAll();
+    public Page<Book> getAll() {
+//        return bookService.findAll();
+        return bookService.findAllByPage();
     }
 
     @GetMapping("/books/{id}")

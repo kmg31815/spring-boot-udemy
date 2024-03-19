@@ -1,5 +1,7 @@
 package com.kmg.demo.domain;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -14,5 +16,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     @Modifying // 自定義更新需加@Modifying，自定義查詢不用
     @Query("update Book b set b.status = ?1 where id = ?2")
     int updateBySql(int status, long id);
+
+    Page<Book> findAll(Pageable pageable);
 
 }
