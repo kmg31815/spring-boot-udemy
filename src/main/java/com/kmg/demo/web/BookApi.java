@@ -4,6 +4,9 @@ import com.kmg.demo.domain.Book;
 import com.kmg.demo.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,9 +19,11 @@ public class BookApi {
     private BookService bookService;
 
     @GetMapping("/books")
-    public Page<Book> getAll() {
+    public Page<Book> getAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size) {
 //        return bookService.findAll();
-        return bookService.findAllByPage();
+        Sort sort = Sort.by(Sort.Direction.DESC, "id");
+        Pageable pageable = PageRequest.of(page, size, sort);
+        return bookService.findAllByPage(pageable);
     }
 
     @GetMapping("/books/{id}")

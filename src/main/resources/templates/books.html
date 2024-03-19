@@ -27,7 +27,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="book, iterStat: ${books}">
+    <tr th:each="book, iterStat: ${page.content}">
         <td th:text="${iterStat.count}">1</td>
         <!--        <td><a href="#" th:text="${book.name}" th:href="@{/books/{id} (id=${book.id})}">書名</a></td>-->
         <td><a href="#" th:text="${book.name}" th:href="@{'/books/' + ${book.id}}">書名</a></td>
@@ -45,6 +45,13 @@
     </tr>
     </tbody>
 </table>
+
+<nav>
+    <ul class="pager">
+        <li class="previous"><a href="#" th:href="@{'/books?page=' + ${page.number - 1}}">上一頁</a></li>
+        <li class="next"><a href="#" th:href="@{'/books?page=' + ${page.number + 1}}">下一頁</a></li>
+    </ul>
+</nav>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>

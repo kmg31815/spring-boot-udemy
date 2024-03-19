@@ -43,10 +43,9 @@ public class BookService {
         return bookRepository.updateBySql(status, id);
     }
 
-    public Page<Book> findAllByPage() {
-        Sort sort = Sort.by(Sort.Direction.DESC, "id");
-//        Pageable pageable = PageRequest.of(1, 5);
-        Pageable pageable = PageRequest.of(0, 5, sort); // 每頁5筆，第0頁
+    public Page<Book> findAllByPage(Pageable pageable) {
+//        Sort sort = Sort.by(Sort.Direction.DESC, "id");
+//        Pageable pageable = PageRequest.of(0, 5, sort); // 每頁5筆，第0頁
         return bookRepository.findAll(pageable);
     }
 

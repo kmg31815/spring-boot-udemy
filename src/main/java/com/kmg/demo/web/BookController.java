@@ -3,13 +3,17 @@ package com.kmg.demo.web;
 import com.kmg.demo.domain.Book;
 import com.kmg.demo.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import java.util.List;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -19,9 +23,11 @@ public class BookController {
     private BookService bookService;
 
     @GetMapping("/books")
-    public String list(Model model) {
-        List<Book> books = bookService.findAll();
-        model.addAttribute("books", books);
+    public String list(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size, Model model) {
+        Sort sort = Sort.by(Sort.Direction.DESC, "id");
+        Pageable pageable = PageRequest.of(page, size, sort);
+        Page<Book> page1 = bookService.findAllByPage(pageable);
+        model.addAttribute("page", page1);
         return "books";
     }
 
@@ -49,7 +55,7 @@ public class BookController {
     public String post(Book book, RedirectAttributes attributes) { // html input 的 name 屬性，需和物件屬性名稱對應
         Book book1 = bookService.save(book);
 
-        if (book1 != null){
+        if (book1 != null) {
             attributes.addFlashAttribute("message", "《" + book1.getName() + "》提交成功！");
         }
 
