@@ -10,11 +10,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -61,6 +58,13 @@ public class BookController {
         }
 
         // redirect 重定向 => 相當於重新調用 url，而非返回靜態 books.html
+        return "redirect:/books";
+    }
+
+    @GetMapping("/books/{id}/delete")
+    public String delete(@PathVariable long id, RedirectAttributes attributes) {
+        bookService.delete(id);
+        attributes.addFlashAttribute("message", "刪除成功！");
         return "redirect:/books";
     }
 
